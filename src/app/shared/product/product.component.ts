@@ -7,7 +7,7 @@ import { Product } from '../models/product';
   styleUrls: ['./product.component.scss'],
 })
 export class ProductComponent {
-  @Input('product') producto!: Product;
+  @Input() producto!: Product;
 
   @Output() addedProduct = new EventEmitter<Product>()
 
