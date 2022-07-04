@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ProductsService } from 'src/app/services/products/products.service';
 import { StoreService } from 'src/app/services/store.service';
 import { Product } from 'src/app/shared/models/product';
 
@@ -7,35 +8,25 @@ import { Product } from 'src/app/shared/models/product';
   templateUrl: './catalog.component.html',
   styleUrls: ['./catalog.component.scss'],
 })
-export class CatalogComponent {
+export class CatalogComponent implements OnInit {
   total: number = 0;
   myShoppingCart: Product[] = [];
-  public productos: Product[] = [
-    {
-      id: 1,
-      name: 'Automobil de juguete',
-      precio: 100,
-      image: '../../../assets/images/bike.jpg',
-    },
-    {
-      id: 2,
-      name: 'Muñeca de trapo',
-      precio: 180,
-      image: '../../../assets/images/books.jpg',
-    },
-    {
-      id: 3,
-      name: 'Pelota de futbol',
-      precio: 120,
-      image: './../../assets/images/toy.jpg',
-    },
-  ];
+  productos: Product[] = [];
+  
 
   /**
    *
    */
-  constructor(private _storeSvc: StoreService) {
+  constructor(
+    private _storeSvc: StoreService,
+    private _productSvc: ProductsService
+  ) {
     this.myShoppingCart = _storeSvc.getShoppingCart();
+  }
+  ngOnInit(): void {
+    this._productSvc.getAllProducts().subscribe((res) => {
+      this.productos = res;
+    });
   }
 
   onAddToShopping(p: Product) {

@@ -1,6 +1,6 @@
 <div>
-    <h2>{{ producto.name }}</h2>
+    <h2>{{ producto.title | reverse }}</h2>
     <img [src]="producto.image">
-    <p>Precio: {{ producto.precio }}</p>
+    <p>Precio: {{ producto.price | currency: 'USD'}}</p>
 </div>
 <button class="btn btn-success" (click)="onAddToCart()">Agregar</button>
