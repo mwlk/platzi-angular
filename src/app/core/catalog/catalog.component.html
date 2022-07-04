@@ -1,5 +1,12 @@
-<app-navbar></app-navbar>
+<p>Total Items Carrito: {{ myShoppingCart.length }}</p>
+
+<p>Valor Total Acumulado: ${{ total }}</p>
 
 <div class="products--grid">
-  <app-product *ngFor="let p of productos" [product]="p"> </app-product>
+  <app-product
+    *ngFor="let p of productos"
+    [product]="p"
+    (addedProduct)="onAddToShopping($event)"
+  >
+  </app-product>
 </div>
