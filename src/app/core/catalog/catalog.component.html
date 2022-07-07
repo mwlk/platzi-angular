@@ -2,11 +2,22 @@
 
 <p>Valor Total Acumulado: ${{ total }}</p>
 
+  <button (click)="toggleDetails()" class="btn btn-info">Click</button>
+
 <div class="products--grid">
   <app-product
     *ngFor="let p of productos"
     [producto]="p"
     (addedProduct)="onAddToShopping($event)"
+    (showDetail)="onShowDetail($event)"
   >
   </app-product>
+</div>
+<div class="details" [class.active]="showProductDetail">
+  <div>
+    <button (click)="toggleDetails()">Cerrar</button>
+    <div class="content-detail">
+      Contenido
+    </div>
+  </div>
 </div>

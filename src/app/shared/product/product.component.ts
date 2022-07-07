@@ -10,8 +10,13 @@ export class ProductComponent {
   @Input() producto!: Product;
 
   @Output() addedProduct = new EventEmitter<Product>()
+  @Output() showDetail = new EventEmitter<number>();
 
   onAddToCart(){
     this.addedProduct.emit(this.producto)
+  }
+
+  viewDetail(){
+    this.showDetail.emit(this.producto.id)
   }
 }

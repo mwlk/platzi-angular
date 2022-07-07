@@ -12,7 +12,7 @@ export class CatalogComponent implements OnInit {
   total: number = 0;
   myShoppingCart: Product[] = [];
   productos: Product[] = [];
-  
+  showProductDetail: boolean = false;
 
   /**
    *
@@ -33,5 +33,15 @@ export class CatalogComponent implements OnInit {
     this._storeSvc.addProduct(p);
 
     this.total = this._storeSvc.getTotal();
+  }
+
+  toggleDetails() {
+    this.showProductDetail = !this.showProductDetail;
+  }
+
+  onShowDetail(id: number){
+    this._productSvc.getDetail(id).subscribe(res => {
+      console.log(res);
+    })
   }
 }
