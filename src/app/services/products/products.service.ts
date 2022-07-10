@@ -1,18 +1,23 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Product } from 'src/app/shared/models/product';
+import { CreateProductDTO, Product } from 'src/app/shared/models/product';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductsService {
+  private apiUrl: string = 'https://fakestoreapi.com/products/';
   constructor(private _http: HttpClient) {}
 
   getAllProducts() {
-    return this._http.get<Product[]>('https://fakestoreapi.com/products/');
+    return this._http.get<Product[]>(this.apiUrl);
   }
 
-  getDetail(id: number){
-    return this._http.get<Product>(`https://fakestoreapi.com/products/${id.toString()}`)
+  getDetail(id: number) {
+    return this._http.get<Product>(`${this.apiUrl}/${id.toString()}`);
+  }
+
+  create(dto: CreateProductDTO) {
+    return this._http.post<Product>(this.apiUrl, dto);
   }
 }

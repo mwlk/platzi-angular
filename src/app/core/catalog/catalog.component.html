@@ -2,7 +2,13 @@
 
 <p>Valor Total Acumulado: ${{ total }}</p>
 
-  <button (click)="toggleDetails()" class="btn btn-info">Click</button>
+<button
+  (click)="createNewProduct()"
+  class="btn btn-info"
+  style="background-color: greenyellow"
+>
+  Agregar Producto
+</button>
 
 <div class="products--grid">
   <app-product
@@ -14,10 +20,16 @@
   </app-product>
 </div>
 <div class="details" [class.active]="showProductDetail">
-  <div>
+  <div *ngIf="productChosen">
     <button (click)="toggleDetails()">Cerrar</button>
     <div class="content-detail">
-      Contenido
+      <h1>{{ productChosen.title }}</h1>
+      <swiper [slidesPerView]="1">
+        <ng-template swiperSlide>
+          <img class="img_detail" [src]="productChosen.image" alt="" />
+        </ng-template>
+      </swiper>
+      <p>{{ productChosen.description }}</p>
     </div>
   </div>
 </div>

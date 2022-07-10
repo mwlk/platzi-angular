@@ -6,3 +6,5 @@ export interface Product {
   description: string;
   category: string;
 }
+
+export interface CreateProductDTO extends Omit<Product, 'id'> {}
