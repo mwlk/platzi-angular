@@ -1,14 +1,14 @@
-<p>Total Items Carrito: {{ myShoppingCart.length }}</p>
+<!-- <p>Total Items Carrito: {{ myShoppingCart.length }}</p>
 
-<p>Valor Total Acumulado: ${{ total }}</p>
+<p>Valor Total Acumulado: ${{ total }}</p> -->
 
-<button
+<!-- <button
   (click)="createNewProduct()"
   class="btn btn-info"
   style="background-color: greenyellow"
 >
   Agregar Producto
-</button>
+</button> -->
 
 <div class="products--grid">
   <app-product
@@ -30,6 +30,7 @@
         </ng-template>
       </swiper>
       <p>{{ productChosen.description }}</p>
+      <button class="btn btn-info" (click)="updateProduct()">Editar</button>
     </div>
   </div>
 </div>

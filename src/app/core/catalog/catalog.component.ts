@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from 'src/app/services/products/products.service';
 import { StoreService } from 'src/app/services/store.service';
-import { CreateProductDTO, Product } from 'src/app/shared/models/product';
+import {
+  CreateProductDTO,
+  Product,
+  UpdateProductDto,
+} from 'src/app/shared/models/product';
 
 @Component({
   selector: 'app-catalog',
@@ -54,17 +58,32 @@ export class CatalogComponent implements OnInit {
     });
   }
 
-  createNewProduct(){
+  createNewProduct() {
     const prod: CreateProductDTO = {
       image: 'https://placeimg.com/640/480/any?random=$%7BMath.random()%7D',
       category: '',
       description: '',
-      price: 1000, 
-      title: 'New Product'
-    }
-    this._productSvc.create(prod).subscribe(res => {
+      price: 1000,
+      title: 'New Product',
+    };
+    this._productSvc.create(prod).subscribe((res) => {
       console.log(res);
-      this.productos.unshift(res)
-    })
+      this.productos.unshift(res);
+    });
+  }
+
+  updateProduct() {
+    const prod: UpdateProductDto = {
+      title: 'update success!',
+    };
+
+    const id = this.productChosen.id;
+
+    this._productSvc.update(id, prod).subscribe((res: Product) => {
+      console.log(`updated ${res}`);
+      const prodIndex = this.productos.findIndex((x) => x.id === res.id);
+
+      this.productos[prodIndex] = res;
+    });
   }
 }

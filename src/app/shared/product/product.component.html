@@ -1,8 +1,10 @@
-<div>
-  <h2>{{ producto.title }}</h2>
-  <img [src]="producto.image" />
-  <p>Precio: {{ producto.price | currency: "USD" }}</p>
-  <p appHighlight>Descripcion: {{ producto.description }}</p>
+<div class="card">
+  <div>
+    <h2>{{ producto.title }}</h2>
+    <img [src]="producto.image" />
+    <p>Precio: {{ producto.price | currency: "USD" }}</p>
+    <p appHighlight>Descripcion: {{ producto.description }}</p>
+  </div>
+  <button class="btn btn-secondary" (click)="viewDetail()">Ver Detalle</button>
+  <button class="btn btn-primary" (click)="onAddToCart()">Agregar</button>
 </div>
-<button class="btn btn-info" (click)="viewDetail()">Ver Detalle</button>
-<button class="btn btn-success" (click)="onAddToCart()">Agregar</button>

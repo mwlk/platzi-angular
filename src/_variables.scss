@@ -1,0 +1,10 @@
+$orange: #fc1f07;
+$black: #262626;
+$pink: #fd796a;
+
+$theme-colors: (
+  "primary": $orange,
+  "secondary": $pink,
+  "dark": $black,
+);
+@import "node_modules/bootstrap/scss/bootstrap";

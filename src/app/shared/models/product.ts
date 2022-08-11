@@ -8,3 +8,5 @@ export interface Product {
 }
 
 export interface CreateProductDTO extends Omit<Product, 'id'> {}
+
+export interface UpdateProductDto extends Partial<CreateProductDTO> {}
