@@ -1,6 +1,6 @@
 {
-  "": {
-    "target": "https://fakestoreapi.com/",
+  "/api/*": {
+    "target": "https://young-sands-07814.herokuapp.com",
     "secure": true,
     "loglevel": "debug",
     "changeOrigin": true
