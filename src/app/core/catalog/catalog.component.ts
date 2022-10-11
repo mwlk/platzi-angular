@@ -26,6 +26,9 @@ export class CatalogComponent implements OnInit {
     title: '',
   };
 
+  private limit: number = 50;
+  private offset: number = 0;
+
   /**
    *
    */
@@ -36,9 +39,7 @@ export class CatalogComponent implements OnInit {
     this.myShoppingCart = _storeSvc.getShoppingCart();
   }
   ngOnInit(): void {
-    this._productSvc.getAllProducts().subscribe((res) => {
-      this.productos = res;
-    });
+    this.loadMore();
   }
 
   onAddToShopping(p: Product) {
@@ -84,6 +85,35 @@ export class CatalogComponent implements OnInit {
       const prodIndex = this.productos.findIndex((x) => x.id === res.id);
 
       this.productos[prodIndex] = res;
+    });
+  }
+
+  deleteProduct() {
+    const id = this.productChosen.id;
+
+    this._productSvc.delete(id).subscribe(() => {
+      const prodIndex = this.productos.findIndex((x) => x.id === id);
+      this.productos.splice(prodIndex, 1);
+      this.showProductDetail = false;
+    });
+  }
+
+  loadMore() {
+    this._productSvc
+      .getAllProducts(this.limit, this.offset)
+      .subscribe((res: Product[]) => {
+        this.productos.push(...res);
+
+        this.offset += this.limit;
+      });
+  }
+
+  readAndUpdate(id: number) {
+    this._productSvc.getDetail(id).subscribe((res) => {
+      const prod = res;
+      this._productSvc.update(prod.id, { title: 'change' }).subscribe((rta) => {
+        console.log(rta);
+      });
     });
   }
 }

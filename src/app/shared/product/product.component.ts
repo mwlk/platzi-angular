@@ -9,14 +9,14 @@ import { Product } from '../models/product';
 export class ProductComponent {
   @Input() producto!: Product;
 
-  @Output() addedProduct = new EventEmitter<Product>()
+  @Output() addedProduct = new EventEmitter<Product>();
   @Output() showDetail = new EventEmitter<number>();
 
-  onAddToCart(){
-    this.addedProduct.emit(this.producto)
+  onAddToCart() {
+    this.addedProduct.emit(this.producto);
   }
 
-  viewDetail(){
-    this.showDetail.emit(this.producto.id)
+  viewDetail() {
+    this.showDetail.emit(this.producto.id);
   }
 }

@@ -1,0 +1,8 @@
+{
+  "": {
+    "target": "https://fakestoreapi.com/",
+    "secure": true,
+    "loglevel": "debug",
+    "changeOrigin": true
+  }
+}

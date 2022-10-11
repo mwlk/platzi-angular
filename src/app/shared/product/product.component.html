@@ -3,6 +3,7 @@
     <h2>{{ producto.title }}</h2>
     <img [src]="producto.image" />
     <p>Precio: {{ producto.price | currency: "USD" }}</p>
+    <p *ngIf="producto.taxes !== undefined">Taxes: {{producto?.taxes | currency: "USD"}}</p>
     <p appHighlight>Descripcion: {{ producto.description }}</p>
   </div>
   <button class="btn btn-secondary" (click)="viewDetail()">Ver Detalle</button>

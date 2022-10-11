@@ -19,6 +19,7 @@
   >
   </app-product>
 </div>
+<button class="btn-btn-primary" (click)="loadMore()">Load More</button>
 <div class="details" [class.active]="showProductDetail">
   <div *ngIf="productChosen">
     <button (click)="toggleDetails()">Cerrar</button>
@@ -31,6 +32,7 @@
       </swiper>
       <p>{{ productChosen.description }}</p>
       <button class="btn btn-info" (click)="updateProduct()">Editar</button>
+      <button class="btn btn-danger" (click)="deleteProduct()">Eliminar</button>
     </div>
   </div>
 </div>
