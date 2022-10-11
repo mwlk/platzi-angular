@@ -18,7 +18,7 @@ import { environment } from './../../../environments/environment';
   providedIn: 'root',
 })
 export class ProductsService {
-  private apiUrl: string = `${environment.API_URL}/products`;
+  private apiUrl: string = `${environment.API_URL}/api/products`;
   constructor(private _http: HttpClient) {}
 
   getAllProducts(limit?: number, offset?: number) {
@@ -66,7 +66,7 @@ export class ProductsService {
     });
   }
 
-  handleErrors(error: HttpErrorResponse): Observable<never> {
+  private handleErrors(error: HttpErrorResponse): Observable<never> {
     if (error.status == HttpStatusCode.Forbidden)
       return throwError(() => 'No tiene permisos para realizar la solicitud.');
     if (error.status == HttpStatusCode.NotFound)

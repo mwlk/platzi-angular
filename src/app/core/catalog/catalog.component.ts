@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { switchMap, zip } from 'rxjs';
 import { ProductsService } from 'src/app/services/products/products.service';
 import { StoreService } from 'src/app/services/store.service';
 import {
@@ -100,7 +101,7 @@ export class CatalogComponent implements OnInit {
 
   loadMore() {
     this._productSvc
-      .getAllProducts(this.limit, this.offset)
+      .getProductsByPage(this.limit, this.offset)
       .subscribe((res: Product[]) => {
         this.productos.push(...res);
 
@@ -109,11 +110,25 @@ export class CatalogComponent implements OnInit {
   }
 
   readAndUpdate(id: number) {
-    this._productSvc.getDetail(id).subscribe((res) => {
-      const prod = res;
-      this._productSvc.update(prod.id, { title: 'change' }).subscribe((rta) => {
-        console.log(rta);
+    this._productSvc
+      .getDetail(id)
+      .pipe(
+        switchMap((product) => {
+          return this._productSvc.update(product.id, { title: 'changed' });
+        })
+      )
+      .subscribe((data) => {
+        console.log(data);
       });
+  }
+
+  zipReadAndUpdate(id: number) {
+    zip(
+      this._productSvc.getDetail(id),
+      this._productSvc.update(id, { title: 'new' })
+    ).subscribe((response) => {
+      const read = response[0];
+      const update = response[1];
     });
   }
 }
