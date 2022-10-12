@@ -6,6 +6,7 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, retry, throwError } from 'rxjs';
+import { checkTime } from 'src/app/interceptors/time.interceptor';
 import {
   CreateProductDTO,
   Product,
@@ -27,17 +28,19 @@ export class ProductsService {
       params.set('limit', limit);
       params.set('offset', offset);
     }
-    return this._http.get<Product[]>(this.apiUrl, { params: params }).pipe(
-      retry(3),
-      map((products) =>
-        products.map((item) => {
-          return {
-            ...item,
-            taxes: 0.21 * item.price,
-          };
-        })
-      )
-    );
+    return this._http
+      .get<Product[]>(this.apiUrl, { params: params, context: checkTime() })
+      .pipe(
+        retry(3),
+        map((products) =>
+          products.map((item) => {
+            return {
+              ...item,
+              taxes: 0.21 * item.price,
+            };
+          })
+        )
+      );
   }
 
   getDetail(id: number) {
@@ -62,7 +65,7 @@ export class ProductsService {
 
   getProductsByPage(limit: number, offset: number) {
     return this._http.get<Product[]>(`${this.apiUrl}`, {
-      params: { limit, offset },
+      params: { limit, offset }, context: checkTime()
     });
   }
 
