@@ -1,16 +1,19 @@
-<div class="full-container">
+<!-- <div class="full-container">
   <app-navbar></app-navbar>
-  <!-- <a href=".assets/files/texto.txt" download="texto.txt">Download</a> -->
-  <p>
-    <button class="btn btn-primary m-4" (click)="downloadDoc()">Download PDF</button>
-    <input type="file" (change)="uploadDoc($event)">
 
+  <p>
+    <button class="btn btn-primary m-4" (click)="downloadDoc()">
+      Download PDF
+    </button>
+    <input type="file" (change)="uploadDoc($event)" />
   </p>
   <p>
-    <img *ngIf="imgRta" [src]="imgRta" alt="">
+    <img *ngIf="imgRta" [src]="imgRta" alt="" />
   </p>
 </div>
 
 <div class="mt-5 container">
   <app-catalog></app-catalog>
-</div>
+</div> -->
+<app-navbar></app-navbar>
+<router-outlet></router-outlet>

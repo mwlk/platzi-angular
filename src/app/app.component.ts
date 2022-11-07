@@ -16,7 +16,9 @@ export class AppComponent {
   /**
    *
    */
-  constructor(private _userSvc: UserService, private _fileSvc: FileService) {}
+  constructor(private _userSvc: UserService, private _fileSvc: FileService) {
+    // this.createUser()
+  }
   // ngOnInit(): void {
   //   this.login();
   // }
