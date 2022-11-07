@@ -1,3 +1,4 @@
+import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -20,7 +21,17 @@ import { RegisterComponent } from './pages/register/register.component';
 import { RecoveryComponent } from './pages/recovery/recovery.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 @NgModule({
-  declarations: [AppComponent, HomeComponent, NotFoundComponent, CategoryComponent, MycartComponent, LoginComponent, RegisterComponent, RecoveryComponent, ProfileComponent],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    NotFoundComponent,
+    CategoryComponent,
+    MycartComponent,
+    LoginComponent,
+    RegisterComponent,
+    RecoveryComponent,
+    ProfileComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -29,6 +40,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
     CoreModule,
     SharedModule,
     SwiperModule,
+    RouterModule,
   ],
 
   providers: [
