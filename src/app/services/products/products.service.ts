@@ -19,7 +19,8 @@ import { environment } from './../../../environments/environment';
   providedIn: 'root',
 })
 export class ProductsService {
-  private apiUrl: string = `${environment.API_URL}/api/products`;
+  private api_base: string = `${environment.API_URL}/api`;
+  private apiUrl: string = `${this.api_base}/products`;
   constructor(private _http: HttpClient) {}
 
   getAllProducts(limit?: number, offset?: number) {
@@ -65,7 +66,8 @@ export class ProductsService {
 
   getProductsByPage(limit: number, offset: number) {
     return this._http.get<Product[]>(`${this.apiUrl}`, {
-      params: { limit, offset }, context: checkTime()
+      params: { limit, offset },
+      context: checkTime(),
     });
   }
 
@@ -77,5 +79,17 @@ export class ProductsService {
     if (error.status == HttpStatusCode.InternalServerError)
       return throwError(() => 'Error en el servidor.');
     return throwError(() => 'Un error inesperado ha ocurrido.');
+  }
+  getProductsByCategory(id: string, limit?: number, offset?: number) {
+    let params = new HttpParams();
+
+    if (limit != undefined && limit > 0 && offset != undefined && offset > 0) {
+      params.set('limit', limit);
+      params.set('offset', offset);
+    }
+    return this._http.get<Product[]>(
+      `${this.api_base}/categories/${id}/products`,
+      { params: params }
+    );
   }
 }
