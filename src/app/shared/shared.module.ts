@@ -4,6 +4,7 @@ import { ProductComponent } from './product/product.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ReversePipe } from '../pipes/reverse.pipe';
 import { HighlightDirective } from '../directives/highlight.directive';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -15,7 +16,8 @@ import { HighlightDirective } from '../directives/highlight.directive';
     HighlightDirective
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule
   ],
   exports: [
     ProductComponent,

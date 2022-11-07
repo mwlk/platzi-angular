@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { switchMap, zip } from 'rxjs';
 import { ProductsService } from 'src/app/services/products/products.service';
 import { StoreService } from 'src/app/services/store.service';
@@ -13,22 +13,20 @@ import {
   templateUrl: './catalog.component.html',
   styleUrls: ['./catalog.component.scss'],
 })
-export class CatalogComponent implements OnInit {
+export class CatalogComponent {
   total: number = 0;
   myShoppingCart: Product[] = [];
-  productos: Product[] = [];
+  @Input() productos: Product[] = [];
+  @Output() loadMore = new EventEmitter();
   showProductDetail: boolean = false;
   productChosen: Product = {
     id: 0,
     price: 0,
     category: '',
     description: '',
-    image: '',
+    images: [],
     title: '',
   };
-
-  private limit: number = 50;
-  private offset: number = 0;
 
   /**
    *
@@ -38,9 +36,6 @@ export class CatalogComponent implements OnInit {
     private _productSvc: ProductsService
   ) {
     this.myShoppingCart = _storeSvc.getShoppingCart();
-  }
-  ngOnInit(): void {
-    this.loadMore();
   }
 
   onAddToShopping(p: Product) {
@@ -62,7 +57,7 @@ export class CatalogComponent implements OnInit {
 
   createNewProduct() {
     const prod: CreateProductDTO = {
-      image: 'https://placeimg.com/640/480/any?random=$%7BMath.random()%7D',
+      images: ['https://placeimg.com/640/480/any?random=$%7BMath.random()%7D'],
       category: '',
       description: '',
       price: 1000,
@@ -99,16 +94,6 @@ export class CatalogComponent implements OnInit {
     });
   }
 
-  loadMore() {
-    this._productSvc
-      .getProductsByPage(this.limit, this.offset)
-      .subscribe((res: Product[]) => {
-        this.productos.push(...res);
-
-        this.offset += this.limit;
-      });
-  }
-
   readAndUpdate(id: number) {
     this._productSvc
       .getDetail(id)
@@ -130,5 +115,8 @@ export class CatalogComponent implements OnInit {
       const read = response[0];
       const update = response[1];
     });
+  }
+  onLoadMore(){
+    this.loadMore.emit()
   }
 }
